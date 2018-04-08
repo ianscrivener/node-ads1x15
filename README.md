@@ -7,7 +7,7 @@ A library providing access to ADS1015 and ADS1115 I2C analog to digital converte
 
   npm install node-ads1x15 --save
 
-## Usage
+## Basic Usage
   The following shows how to use the node-ads1x15 module from a Node.js application. (Note that the ads1x15 address and i2c bus are optional arguments.)
   ```javascript
   var ads1x15 = require('node-ads1x15');  
@@ -24,9 +24,10 @@ A library providing access to ADS1015 and ADS1115 I2C analog to digital converte
   var channel = 0; //channel 0, 1, 2, or 3...  
   var samplesPerSecond = '250'; // see index.js for allowed values for your chip  
   var progGainAmp = '4096'; // see index.js for allowed values for your chip  
-  
-  //somewhere to store our reading   
-  var reading  = 0;  
+
+
+  // read a single value
+  var readingSingleEnded  = 0;
   if(!adc.busy)  
   {  
     adc.readADCSingleEnded(channel, progGainAmp, samplesPerSecond, function(err, data) {   
@@ -36,11 +37,16 @@ A library providing access to ADS1015 and ADS1115 I2C analog to digital converte
         throw err;  
       }  
       // if you made it here, then the data object contains your reading!  
-      reading = data;  
+      readingSingleEnded = data;
       // any other data processing code goes here...  
     );  
-  }  
-  ````    
+  }
+
+  ````
+## Examples
+
+  [See some examples](blog/master/examples)
+
 ## Tests
 
   none (yet)
@@ -54,3 +60,4 @@ A library providing access to ADS1015 and ADS1115 I2C analog to digital converte
 * 1.0.0 Initial release
 * 1.0.1 added adc.busy flag to prevent user from grabbing a reading from a previous request
 * 1.0.3 added i2c_dev parameter for devices that do not use /dev/i2c-1
+* 1.0.4 add somes examples README.md
